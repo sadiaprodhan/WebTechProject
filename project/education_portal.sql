@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 22, 2019 at 06:37 PM
+-- Generation Time: Dec 24, 2019 at 06:02 AM
 -- Server version: 10.1.28-MariaDB
 -- PHP Version: 7.1.11
 
@@ -62,8 +62,15 @@ CREATE TABLE `login` (
 --
 
 INSERT INTO `login` (`id`, `password`, `type`) VALUES
+('U-10', '111', 'Teacher'),
 ('U-2', '8989', 'Admin'),
-('U-3', '123', 'Admin');
+('U-3', '123', 'Admin'),
+('U-4', '1234', 'Admin'),
+('U-5', '123', 'Teacher'),
+('U-6', '123', 'Student'),
+('U-7', '123', 'Teacher'),
+('U-8', '111', 'Teacher'),
+('U-9', '111', 'Teacher');
 
 -- --------------------------------------------------------
 
@@ -131,7 +138,6 @@ CREATE TABLE `notice` (
 --
 
 INSERT INTO `notice` (`notice_id`, `poster_type`, `poster_name`, `notice_text`, `status`) VALUES
-('Notice2', 'Admin', 'abi', 'fuuu', 0),
 ('Notice3', 'Admin', 'a', ' hi', 1),
 ('Notice4', 'Admin', 'a', ' hiii', 1),
 ('Notice5', 'Admin', 'a', ' hi', 1);
@@ -176,8 +182,15 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `gender`) VALUES
+('U-10', 'abcd', 'bbB@yahoo.com', 'Male'),
 ('U-2', 'sadia', 'sadia@yahoo.com', 'Female'),
-('U-3', 'Anis', 'hridoyrahman57@gmail.com', 'Male');
+('U-3', 'Anis', 'hridoyrahman57@gmail.com', 'Male'),
+('U-4', 'fariha', 'fariha@yahoo.com', 'Female'),
+('U-5', 'Jahin', 'jahin@yahoo,com', 'Male'),
+('U-6', 'farihaa', 'fareeh@yahoo.com', 'Female'),
+('U-7', 'Prottoy', 'prottoy@yahoo.com', 'Male'),
+('U-8', 'jahu', 'jahu@yahoo.com', 'Male'),
+('U-9', 'jahin', 'jahu@gmail.com', 'Male');
 
 --
 -- Indexes for dumped tables

@@ -52,7 +52,7 @@ $oldpass= $_POST['password'];
 </tr>
 <tr>
 <td> <input type="submit" name="submit" value="Change"></td>
-<td>  <a href= "AdminProfile.php"> Back  </a>
+<td>  <a href= "profile.php"> Back  </a>
 <div> <?php echo $val;?> </div> </td>
 </tr>
 </table>

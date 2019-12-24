@@ -1,0 +1,136 @@
+<html>
+
+<head>
+	<title>LOGIN</title>
+
+</head>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		background: url(log1.png);
+		background-size: cover;
+		background-position:center;
+		font-family: sans-serif;  
+
+	}
+	.loginbox{
+		width: 320px;
+		height: 420px;
+		background: #000
+		color: #fff;
+		top: 50%;
+		left:50%;
+		position: absolute;
+		transform: translate(-50%,-50%);
+		box-sizing: border-box;
+		padding: 70px 30px;
+
+	}
+
+.loginbox input[type="text"], input[type="password"]
+{
+	border: none;
+	border-bottom:  1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+
+}
+.loginbox input[type="submit"]
+{
+
+	border: none;
+	outline: none;
+	height: 40px;
+	
+	font-size: 18px;
+
+}
+.loginbox input[type="submit"]:hover
+{
+
+	cursor: pointer;
+	background: #ffc107;
+	color:#000;
+}
+.loginbox a{
+	text-decoration: none;
+	font-size: 12px;
+	line-height:20px;
+	color: darkgrey;
+}
+
+</style>
+<script>
+	function f1() {
+		var id = document.getElementById("uid").value;
+		var pass = document.getElementById("pass").value;
+
+		if (id == "" || pass == "") { document.getElementById("logindiv").innerHTML = "Null Submission"; }
+		else {
+			var xhttp = new XMLHttpRequest();
+			xhttp.open("POST", "login.php", true);
+			xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+			xhttp.send('uid=' + id + '&pass=' + pass);
+
+			xhttp.onreadystatechange = function (hh) {
+
+
+                 if (this.readyState == 4 && this.status == 200) {
+				if (hh == 'true') { header("Location:StudentHome.php"); }
+				else {
+					document.getElementById('logindiv').innerHTML = "Invalid ID and password";
+
+				}
+}
+				};
+
+		}
+	}
+</script>
+
+
+<body>
+	<div class="loginbox">
+		
+		
+	<form method="POST" action="login.php">
+		<table border="0" align="center">
+			<tr>
+				<td>
+					<fieldset align="center" style="width:50">
+						<legend><h1>LOGIN</h1></legend>
+						<table align="center" border="0" bgcolor="#660066">
+							<tr>
+								<td>ID: </td>
+								<td><input type="text" name="uid" id="uid" placeholder="Enter your id.." /></td>
+							</tr>
+							<tr>
+								<td>PASSWORD:</td>
+								<td><input type="password" name="pass" id="pass" placeholder="Enter your password.. " />
+									<div id="logindiv"> </div>
+								</td>
+								<td></td>
+							</tr>
+							<tr></tr>
+							<tr></tr>
+							
+							<tr>
+								<td>
+									<hr>
+									<input type="submit" name="submit" value="Login"></td>
+									<td><a href="register.html" style="color:white;"> Register</a></td>
+							
+							</tr>
+
+						</table>
+					</fieldset>
+			
+	</form>
+</div>
+</body>
+
+</html>

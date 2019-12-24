@@ -1,0 +1,59 @@
+<html>
+<head> <title>change password</title> </head>
+<style>
+	fieldset {
+		border: 1px solid rgb(255, 232, 57);
+		width: 400px;
+		float: center;
+	}
+</style>
+<script>
+function f1()
+{
+	  
+ var npass= document.getElementById('newpass').value;
+ var rpass= document.getElementById('"retypepass').value;
+ if( npass=="" || rpass=="")
+{ document.getElementById('passdiv').innerHTML="null submission";}
+}
+else
+{
+	var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", "register.php", true);
+				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhttp.send('newpass='+npass+'&retypepass='+rpass);
+			
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					if(this.responseText=="Student")
+					{window.location.href='StudentHome.php';}
+					 	else
+						{document.getElementById('passdiv').innerHTML = this.responseText;}					 
+					}};
+}
+</script>
+<body>
+	<table border = "0" align = "center"><tr><td>
+<fieldset>
+<legend> Change Password </legend>
+ <table>
+<tr>
+<td> New Password </td>
+<td> <input type="password" name="newpass" id="newpass">  </td>
+</tr>
+
+<tr>
+<td> Retype New Password </td>
+<td> <input type="password" name="retypepass" id="retypepass">  </td>
+</tr>
+<tr>
+<td> <input type="button" name= "changePass" value="change" onclick="f1()"> <a href="login.html"> Login </a> </td>
+<td> <div id="passdiv"> </div> </td>
+</tr>
+
+ </table>
+ 
+</fieldset>
+</td></tr></table>
+</body>
+</html>

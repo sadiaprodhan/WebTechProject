@@ -38,48 +38,12 @@ if(isset($_POST['video']))
 if(isset($_POST['commentid']))
 {
 	$id= $_POST['commentid'];
-	
-	$sqlv= "delete from comments where commentid='{$id}'";
+	$myid= $_SESSION['id'];
+	$sqlv= "delete from comments where commentid='{$id}'and posterid='{$myid}' ";
 	if(mysqli_query($con,$sqlv))
 	{ }
 	
 }
-if(isset($_POST['data']))
-{ $data= $_POST['data'];
-$json = json_decode($data);
-$posterid= $json->id;
-$email= $_SESSION['email'];
-$comment = $json->comment;
-$sql= "select email from users where id= '{$posterid}'";
-$result1= mysqli_query($con,$sql);
-$data= mysqli_fetch_assoc($result1);
-$posteremail= $data['email'];
- $sql1= "select count(*) from mail";
-	$result1= mysqli_query($con,$sql1);
-	$count= mysqli_fetch_assoc($result1);
-	$body= "you have been warned";
-	$id= $count['count(*)'];
-	$id++;
-	while(1)
-	{$sql2= "select * from mail where mailid='M-{$id}'";
-		$result1= mysqli_query($con, $sql2);
-		$data= mysqli_fetch_assoc($result1);
-		if(count($data)>0)
-		{ $id++;
-			continue;}
-	else
-	{break;}
-	}
-	
-	$sqlm= "insert into mail values ('M-{$id}','{$email}','{$posteremail}','{$body}')";
-	if($result= mysqli_query($con,$sqlm))
-	{ echo "done";}
- else
- {echo "no";}
-	
-	
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -131,30 +95,7 @@ function deletecomment(commentid)
 						}};
 
 }
-function warning(posterid,comment)
-{
-	var json ={
-			'id': ''+posterid ,
-			'comment': ''+comment
-		
-		};
-		var data  = JSON.stringify(json);
-	var xhttp = new XMLHttpRequest();
-				xhttp.open("POST", "OnlineClasses.php", true);
-				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-				xhttp.send('data='+data);
-			
-				xhttp.onreadystatechange = function() {
-					if (this.readyState == 4 && this.status == 200) {
-						alert("warned");
-						window.location.reload();
-					
-					
-						
-						
-						}};
 
-}
 </script>
 <body>
 
@@ -168,7 +109,7 @@ while ($data= mysqli_fetch_assoc($result))
 
 
 	<table align="center" border="1" bgcolor="SeaShell">
-		<h2 align="center" style="border:2px solid GreenYellow;"> <?php echo $data['description'];?> </h2>
+		<h2 align="center" style="border:2px solid DarkMagenta;"> <?php echo $data['description'];?> </h2>
 		
 		<tr>
 			<td><video width='530' height= '240' controls>
@@ -184,7 +125,18 @@ while ($row= mysqli_fetch_assoc($resultcom))
 ?>
 <tr>
 
-<td> <?php echo $row['postedby']?> wrote: <?php echo $row['comment']?>  <input type= button name= "delete" value= "delete" align="right" onclick ="deletecomment('<?php echo $row['commentid']?>')"> <input type= button name= "Warning" value= "Send Warning" align= "right" onclick= "warning('<?php echo $row['posterid']?>','<?php echo $row['comment']?>')"> </td>
+<td> <?php echo $row['postedby']?> wrote: <?php echo $row['comment']?> 
+<?php 
+$id= $_SESSION['id'];
+if($row['posterid']== $id )
+{
+	?>
+ <input type= button name= "delete" value= "delete" align="right" onclick ="deletecomment('<?php echo $row['commentid']?>')"> 
+ <?php
+}
+ ?>
+</td>
+  </td>
 
 </tr>
 
@@ -200,7 +152,7 @@ while ($row= mysqli_fetch_assoc($resultcom))
 }
 ?>
 <table>	
-		<td colspan="2" align = "right"> <a href="AdminHome.php" > Go Home  </a></td>
+		<td colspan="2" align = "right"> <a href="StudentHome.php" > Go Home  </a></td>
 		</tr>
 		
  	</table>
