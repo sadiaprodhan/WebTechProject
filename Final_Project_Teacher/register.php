@@ -48,7 +48,7 @@ $sql1 = "insert into login values ('{$id}', '{$pass}','{$type}')";
 	$_SESSION['pass']=$pass;
 	$_SESSION['type']= $type;
 	
-	echo $type;
+	echo trim($type);
  }}
 else
 {echo "Registration not done ";} 
