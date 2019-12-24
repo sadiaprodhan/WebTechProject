@@ -1,0 +1,211 @@
+<html>
+<head>
+	<title>Registration</title>
+</head>
+<style>
+	fieldset {
+		border: 1px solid rgb(255, 232, 57);
+		width: 400px;
+		float: center;
+	}
+</style>
+<script type="text/javascript">
+var auto= 10;
+	var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", "register.php", true);
+				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhttp.send('auto='+auto);
+			
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					 	document.getElementById('uid').value = "U-"+this.responseText;					 
+					}};
+
+	
+	
+	function f2()
+{ 
+	  var id = document.getElementById('uid').value;
+ var pass= document.getElementById('pass').value;
+ var cpass = document.getElementById('cpass').value;
+ var name = document.getElementById('uname').value;
+  var email= document.getElementById('email').value;
+ var type= document.getElementById('type');
+  var gender= document.getElementById('gender');
+ if( id=="" || pass=="" || cpass=="" ||name == "" || email== "" ||type.selectedIndex==0 ||type.selectedIndex==0)
+{ document.getElementById('registerdiv').innerHTML="null submission";}
+else
+{  var vname= name.split('');
+
+for(var a=0; a<vname.length;a++)
+{
+if(((vname[a]>='A'&&vname[a]<='Z') ||(vname[a]>='a'&&vname[a]<='z') ))
+{   
+continue;}
+else
+{ name= "false";
+break; 
+
+} }
+if (name=="false")
+{document.getElementById('registerdiv').innerHTML="Must be all leters";}
+else
+{
+ 
+var usertype= type.value;
+var usergender= gender.value;
+
+
+
+
+var position= email.search("@");
+if(position ==-1 || position== 0)
+{document.getElementById('registerdiv').innerHTML="invalid email";
+email= "no";
+}
+else 
+{var position1= email.search(".com");
+if(position1<position)
+{document.getElementById('registerdiv').innerHTML="invalid email";
+email= "no";
+}
+else
+{
+var valemail= email.split();
+if(!((valemail[0]>='A' && valemail[0]<='Z') || (valemail[0]>='a' && valemail[0]<='z')))
+ 	{document.getElementById('registerdiv').innerHTML="Invalid email";
+	email= "no";
+	}
+else
+{
+for(var a=1; a<valemail.length;a++)
+{
+if(((valemail[a]>='A'&&valemail[a]<='Z') ||(valemail[a]>='a'&&valemail[a]<='z') || valemail[a]=='.'|| valemail[a]=='@' ||(valemail[a]>=0 && valemail[a]<=9) ))
+	
+{ 
+	continue;
+}
+else
+{document.getElementById('registerdiv').innerHTML="invalid email";  
+email= "no";
+break;
+}
+}
+}
+}
+}
+ 
+if(email== "no")
+{document.getElementById('registerdiv').innerHTML="invalid email";}
+else
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+if(cpass==pass)
+{
+var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", "register.php", true);
+				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhttp.send('uid='+id+'&pass='+pass+'&cpass='+cpass+'&name='+name+'&email='+email+'&type='+usertype+'&gender='+usergender);
+			
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					if(this.responseText=="Admin")
+					{window.location.href='AdminHome.php';}
+					if(this.responseText=="Teacher")
+					{window.location.href='TeacherHome.php';}
+				    if(this.responseText== "Student")
+					{window.location.href='StudentHome.php';}
+					
+					 	else
+						{document.getElementById('registerdiv').innerHTML = this.responseText;}					 
+					}};
+					
+}
+else
+{document.getElementById('registerdiv').innerHTML="passwords do not match";}
+}
+}}
+}
+
+
+</script>
+<body>
+	<form method="POST" action="RegistrationCheck.php">
+		<table border = "0" align = "center">
+	<tr> 
+	<td>
+	<fieldset>
+			<legend>REGISTRATION</legend>
+			<table border="0">
+				<tr>
+					<td>Id: </td>
+					<td><input type="text" name="id" id="uid" disabled></td>
+				</tr>
+				<tr>
+					<td>Password:</td>
+					<td><input type="password" name="password" id="pass" /></td>
+				</tr>
+				<tr>
+					<td>Confirm Password:</td>
+					<td><input type="password" name="confirmpassword" id="cpass"/></td>
+				</tr>
+				<tr>
+					<td>Name: </td>
+					<td><input type="text" name="uname" id="uname" /></td>
+				</tr>
+				<tr>
+					<td>Email: </td>
+					<td><input type="text" name="email"  id= "email" required />
+					<abbr title="hint: sample@example.com"><b>i</b></abbr></td>
+				</tr>
+
+				<tr>
+					<td>User Type:</td>
+					<td> <select id="type">
+						<option value=""></option>
+						<option value="Teacher">Teacher</option>
+						<option value="Admin">Admin</option>
+						<option value="Student">Student</option>
+						 </td>
+				</tr>
+
+				<tr>
+					<td>Gender:</td>
+					<td> <select id="gender">
+						<option value=""></option>
+						<option value="Female">Female</option>
+						<option value="Male">Male</option>
+						 </td>
+				</tr>
+				<td>
+				<hr>
+						<input type="button" name="submit" value="Sign Up" onclick="f2()">
+						
+						<a href = "index.html"> Sign In</a>
+						<div id="registerdiv"> </div>
+					</td>
+				</table>
+	</fieldset>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
