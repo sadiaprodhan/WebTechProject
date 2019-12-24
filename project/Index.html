@@ -1,0 +1,145 @@
+<html>
+
+<head>
+	<title>LOGIN</title>
+
+</head>
+<style type="text/css">
+	body{
+		margin:0;
+		padding:0;
+		background: url(log1.png);
+		background-size: cover;
+		background-position:center;
+		font-family: sans-serif;  
+
+	}
+	.loginbox{
+		width: 320px;
+		height: 420px;
+		background: #000
+		color: #fff;
+		top: 50%;
+		left:50%;
+		position: absolute;
+		transform: translate(-50%,-50%);
+		box-sizing: border-box;
+		padding: 70px 30px;
+
+	}
+
+.loginbox input[type="text"], input[type="password"]
+{
+	border: none;
+	border-bottom:  1px solid #fff;
+	background: transparent;
+	outline: none;
+	height: 40px;
+	color: #fff;
+	font-size: 16px;
+
+}
+.loginbox input[type="submit"]
+{
+
+	border: none;
+	outline: none;
+	height: 40px;
+	
+	font-size: 18px;
+
+}
+.loginbox input[type="submit"]:hover
+{
+
+	cursor: pointer;
+	background: #ffc107;
+	color:#000;
+}
+.loginbox a{
+	text-decoration: none;
+	font-size: 12px;
+	line-height:20px;
+	color: darkgrey;
+}
+
+</style>
+<script>
+function f1()
+{
+var id= document.getElementById("uid").value;
+var pass= document.getElementById("pass").value;
+
+if(id== "" || pass == "")
+{ document.getElementById("logindiv").innerHTML="Null Submission";}
+else
+{
+var xhttp = new XMLHttpRequest();
+				xhttp.open("POST", "logincheck.php", true);
+				xhttp.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+				xhttp.send('uid='+id+'&pass='+pass);
+			
+				xhttp.onreadystatechange = function() {
+					if (this.readyState == 4 && this.status == 200) {
+					if(this.responseText== "Admin")
+					{window.location.href='AdminHome.php';}
+					else if(this.responseText== "Teacher")
+					{window.location.href='TeacherHome.php';}
+					else if(this.responseText== "Student")
+					{window.location.href='StudentHome.php';}
+										
+					else
+						{document.getElementById('logindiv').innerHTML = "Invalid ID and password"
+						alert(this.responseText);
+											
+					}};
+
+}}
+}
+</script>
+
+<body>
+<div class="loginbox">
+	
+	<table border="0"  align = "center" >
+				<tr>
+				<td>
+				<img src="0.png" align= "center"width="200px">
+				</td> 
+				<td>  </td>
+			</tr>
+			</table>
+				
+			<form method="POST" > 
+	<table border = "0" align = "center">
+	<tr> 
+	<td>
+	<fieldset align="center" style="width:50" >
+			<legend>LOGIN</legend>
+			<table align="center" border= "0" bgcolor="#660066">
+				<tr>
+					<td>ID: </td>
+					<td><input type="text" name="id" id="uid" placeholder="Enter your id.."  /></td>
+				</tr>
+				<tr>
+					<td>PASSWORD:</td>
+					<td><input type="password" name="password" id="pass" placeholder="Enter your password.. " />
+					<div id="logindiv"> </div>
+					</td>
+				</tr>
+				<tr>	
+				<td>
+				<hr>
+						<input type="button" name="submit" value="Login" onclick="f1()">
+						<a href = "register.html" style="color:white;"> Register</a>
+					</td>
+					<td> </td>
+					</tr>
+</table>
+</fieldset>
+</td>
+</tr>
+</table>
+</form>
+</body>
+</html>
